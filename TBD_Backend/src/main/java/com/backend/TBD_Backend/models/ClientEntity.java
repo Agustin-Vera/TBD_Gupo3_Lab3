@@ -13,8 +13,7 @@ public class ClientEntity {
     private String password;
     private String phone;
 
-    public ClientEntity(ObjectId id, String name, String address, String email, String password, String phone) {
-        this.id = id != null ? id : new ObjectId();
+    public ClientEntity(String name, String address, String email, String password, String phone) {
         this.name = name;
         this.address = address;
         this.email = email;
