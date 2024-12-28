@@ -1,13 +1,18 @@
 package com.example.TBDBackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class OrderDetailDTO {
+    @JsonProperty("order_id")
+    private String orderId;
 
-    private String order_id;
-    private String product_id;
+    @JsonProperty("product_id")
+    private String productId;
+
     private int quantity;
-    private double unit_price;
 
+    @JsonProperty("unit_price")
+    private double unitPrice;
 }

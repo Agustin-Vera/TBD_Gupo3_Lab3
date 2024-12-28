@@ -1,5 +1,6 @@
 package com.example.TBDBackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -22,4 +23,10 @@ public class ClientEntity {
     private String password;
 
     private String phone;
+
+    @JsonIgnore
+    private Object target;
+
+    @JsonIgnore
+    private Object source;
 }

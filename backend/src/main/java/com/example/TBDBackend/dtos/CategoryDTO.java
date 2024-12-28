@@ -6,6 +6,5 @@ import java.time.LocalDateTime;
 
 @Data
 public class CategoryDTO {
-
     private String name;
 }
