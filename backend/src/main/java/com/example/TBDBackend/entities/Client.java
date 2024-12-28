@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Builder
-public class ClientEntity {
+public class Client {
     @Id
     private String id;
 

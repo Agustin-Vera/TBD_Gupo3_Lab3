@@ -3,7 +3,7 @@ package com.example.TBDBackend.controllers;
 import com.example.TBDBackend.dtos.LoginDTO;
 import com.example.TBDBackend.dtos.LoginResponseDTO;
 import com.example.TBDBackend.dtos.RegisterDTO;
-import com.example.TBDBackend.entities.ClientEntity;
+import com.example.TBDBackend.entities.Client;
 import com.example.TBDBackend.services.AuthService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<ClientEntity> register(@RequestBody RegisterDTO registerDTO) {
+    public ResponseEntity<Client> register(@RequestBody RegisterDTO registerDTO) {
         return new ResponseEntity<>(authService.register(registerDTO), HttpStatus.CREATED);
     }
 
@@ -65,7 +65,7 @@ public class AuthController {
     }
 
     @GetMapping("/client")
-    public ResponseEntity<ClientEntity> getClientByJwt(HttpServletRequest request) {
+    public ResponseEntity<Client> getClientByJwt(HttpServletRequest request) {
         return new ResponseEntity<>(authService.getClientByToken(request.getCookies()), HttpStatus.OK);
     }
 }

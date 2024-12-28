@@ -1,7 +1,7 @@
 package com.example.TBDBackend.services;
 
 import com.example.TBDBackend.dtos.CategoryDTO;
-import com.example.TBDBackend.entities.CategoryEntity;
+import com.example.TBDBackend.entities.Category;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<CategoryEntity> findAllCategories() {
+    public List<Category> findAllCategories() {
         return categoryRepository.findAll();
     }
 
-    public CategoryEntity findCategoryById(String id) {
-        Optional<CategoryEntity> category = categoryRepository.findById(id);
+    public Category findCategoryById(String id) {
+        Optional<Category> category = categoryRepository.findById(id);
 
         if (category.isEmpty()) {
             throw new EntityNotFoundException("Category not found");
@@ -29,27 +29,27 @@ public class CategoryService {
         return category.get();
     }
 
-    public CategoryEntity saveCategory(CategoryDTO categoryDTO) {
-        Optional<CategoryEntity> possibleCategory = categoryRepository.findByName(categoryDTO.getName());
+    public Category saveCategory(CategoryDTO categoryDTO) {
+        Optional<Category> possibleCategory = categoryRepository.findByName(categoryDTO.getName());
 
         if (possibleCategory.isPresent()) {
             throw new IllegalArgumentException("Category already exists");
         }
-        CategoryEntity category = CategoryEntity.builder()
+        Category category = Category.builder()
                 .name(categoryDTO.getName())
                 .build();
 
         return categoryRepository.save(category);
     }
 
-    public CategoryEntity updateCategory(String id, CategoryDTO categoryDTO) {
-        Optional<CategoryEntity> category = categoryRepository.findById(id);
+    public Category updateCategory(String id, CategoryDTO categoryDTO) {
+        Optional<Category> category = categoryRepository.findById(id);
 
         if (category.isEmpty()) {
             throw new EntityNotFoundException("Category not found");
         }
 
-        CategoryEntity updatedCategory = CategoryEntity.builder()
+        Category updatedCategory = Category.builder()
                 .id(category.get().getId())
                 .name(categoryDTO.getName())
                 .build();
@@ -57,7 +57,7 @@ public class CategoryService {
     }
 
     public void deleteCategory(String id) {
-        Optional<CategoryEntity> category = categoryRepository.findById(id);
+        Optional<Category> category = categoryRepository.findById(id);
         if (category.isEmpty()) {
             throw new EntityNotFoundException("Category not found");
         }

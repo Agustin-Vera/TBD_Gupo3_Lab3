@@ -1,6 +1,6 @@
 package com.example.TBDBackend.controllers;
 
-import com.example.TBDBackend.entities.LogEntity;
+import com.example.TBDBackend.entities.Log;
 import com.example.TBDBackend.services.LogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class LogController {
     private LogsService logsService;
 
     @GetMapping
-    public List<LogEntity> getAllLogs() {
+    public List<Log> getAllLogs() {
         return logsService.getAllLogs();
     }
 }

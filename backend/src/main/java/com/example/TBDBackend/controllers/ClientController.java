@@ -1,6 +1,6 @@
 package com.example.TBDBackend.controllers;
 
-import com.example.TBDBackend.entities.ClientEntity;
+import com.example.TBDBackend.entities.Client;
 import com.example.TBDBackend.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +18,12 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<ClientEntity>> getAllClients() {
+    public ResponseEntity<List<Client>> getAllClients() {
         return new ResponseEntity<>(clientService.findAllClients(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientEntity> getClientById(@PathVariable String id) {
+    public ResponseEntity<Client> getClientById(@PathVariable String id) {
         return new ResponseEntity<>(clientService.findClientById(id), HttpStatus.OK);
     }
 

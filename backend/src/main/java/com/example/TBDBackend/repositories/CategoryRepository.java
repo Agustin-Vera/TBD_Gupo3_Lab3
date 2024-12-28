@@ -1,10 +1,10 @@
 package com.example.TBDBackend.repositories;
 
-import com.example.TBDBackend.entities.CategoryEntity;
+import com.example.TBDBackend.entities.Category;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface CategoryRepository extends MongoRepository<CategoryEntity, String> {
-    Optional<CategoryEntity> findByName(String name);
+public interface CategoryRepository extends MongoRepository<Category, String> {
+    Optional<Category> findByName(String name);
 }

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class ProductEntity {
+public class Product {
     @Id
     private String id;
 
@@ -30,12 +30,12 @@ public class ProductEntity {
     private String state;
 
     @DocumentReference(lazy = true)
-    private CategoryEntity category;
+    private Category category;
 
     @JsonProperty("order_details")
     @JsonIgnore
     @DocumentReference(lazy = true)
-    private List<OrderDetailEntity> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     @JsonIgnore
     private Object target;
