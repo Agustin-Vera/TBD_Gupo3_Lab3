@@ -4,8 +4,10 @@ import register from "../components/RegisterUser.vue";
 import login from "../components/LoginUser.vue";
 import order from "../components/Order.vue";
 import addProduct from "../components/AddProduct.vue";
-import logs from "../components/Logs.vue";
 import confirmOrder from "../components/ConfirmOrder.vue";
+import Querry1 from "../components/Querry1.vue";
+import Querry2 from "../components/Querry2.vue";
+import Querry3 from "../components/Querry3.vue";
 
 const routes = [
   {
@@ -33,36 +35,27 @@ const routes = [
     name: "AddProduct",
     component: addProduct,
   },
-  {
-    path: "/logs",
-    name: "logs",
-    component: logs,
-  },
+  ,
   {
     path: "/confirmOrder",
     name: "ConfirmOrder",
     component: confirmOrder,
   },
   {
-    path: "/querry1",
-    name: "querry1",
-    component: querry1,
+    path: "/Querry1",
+    name: "Querry1",
+    component: Querry1,
   },
   {
-    path: "/querry2",
-    name: "querry2",
-    component: querry2,
+    path: "/Querry2",
+    name: "Querry2",
+    component: Querry2,
   },
   {
-    path: "/querry3",
-    name: "querry3",
-    component: querry3,
-  },
-  {
-    path: "/restrictedCommune",
-    name: "RestrictedCommune",
-    component: RestrictedCommune,
-  },
+    path: "/Querry3",
+    name: "Querry3",
+    component: Querry3,
+  }
 ];
 
 const router = createRouter({
