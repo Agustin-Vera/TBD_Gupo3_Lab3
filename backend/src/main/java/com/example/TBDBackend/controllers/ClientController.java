@@ -1,6 +1,8 @@
 package com.example.TBDBackend.controllers;
 
-import com.example.TBDBackend.entities.Client;
+import com.example.TBDBackend.dtos.AddressRequest;
+import com.example.TBDBackend.models.Address;
+import com.example.TBDBackend.models.Client;
 import com.example.TBDBackend.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,18 @@ public class ClientController {
     @GetMapping("/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable String id) {
         return new ResponseEntity<>(clientService.findClientById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/{clientId}/addresses")
+    public ResponseEntity<Client> addAddress(
+            @PathVariable String clientId,
+            @RequestBody AddressRequest request) {
+        return ResponseEntity.ok(clientService.addAddress(clientId, request));
+    }
+
+    @GetMapping("/{clientId}/addresses")
+    public ResponseEntity<List<Address>> getAddresses(@PathVariable String clientId) {
+        return clientService.findAddressesByClientId(clientId);
     }
 
     @DeleteMapping("/{id}")

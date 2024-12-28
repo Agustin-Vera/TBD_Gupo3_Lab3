@@ -1,8 +1,8 @@
 package com.example.TBDBackend.services;
 
 import com.example.TBDBackend.dtos.OrderDTO;
-import com.example.TBDBackend.entities.Client;
-import com.example.TBDBackend.entities.Order;
+import com.example.TBDBackend.models.Client;
+import com.example.TBDBackend.models.Order;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.repositories.ClientRepository;
 import com.example.TBDBackend.repositories.OrderRepository;

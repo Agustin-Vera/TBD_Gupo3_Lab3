@@ -1,8 +1,8 @@
 package com.example.TBDBackend.services;
 
 import com.example.TBDBackend.dtos.ProductDTO;
-import com.example.TBDBackend.entities.Category;
-import com.example.TBDBackend.entities.Product;
+import com.example.TBDBackend.models.Category;
+import com.example.TBDBackend.models.Product;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.repositories.CategoryRepository;
 import com.example.TBDBackend.repositories.ProductRepository;

@@ -1,7 +1,7 @@
 package com.example.TBDBackend.services;
 
 import com.example.TBDBackend.dtos.CategoryDTO;
-import com.example.TBDBackend.entities.Category;
+import com.example.TBDBackend.models.Category;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.TBDBackend.entities;
+package com.example.TBDBackend.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

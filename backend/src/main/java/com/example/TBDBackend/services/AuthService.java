@@ -5,7 +5,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.TBDBackend.dtos.LoginDTO;
 import com.example.TBDBackend.dtos.LoginResponseDTO;
 import com.example.TBDBackend.dtos.RegisterDTO;
-import com.example.TBDBackend.entities.Client;
+import com.example.TBDBackend.models.Client;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.jwt.JwtUtil;
 import com.example.TBDBackend.repositories.ClientRepository;
