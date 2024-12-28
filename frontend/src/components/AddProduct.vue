@@ -58,7 +58,7 @@ const categories = ref([]);
 
 const registerProduct = async () => {
   try {
-    const response = await productService.postProduct(product.value, product.value.categoryId);
+    const response = await productService.postProduct(product.value);
 
     product.value = {
       name: '',

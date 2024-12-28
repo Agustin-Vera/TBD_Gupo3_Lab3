@@ -8,12 +8,16 @@
           <tr>
             <th>#</th>
             <th>Dirección</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(address, index) in addresses" :key="index">
-            <td>Dirección {{ index + 1 }}</td>
-            <td>{{ address }}</td>
+            <td>{{ index + 1 }}</td>
+            <td>{{ address.streetAddress }}</td>
+            <td>{{ address.location.y }}</td>
+            <td>{{ address.location.x }}</td>
           </tr>
         </tbody>
       </table>
@@ -35,6 +39,11 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
+  import { postClientAdress, getClientAdress } from '../services/clientService';
+  import { useStore } from 'vuex';
+  
+  const store = useStore();
+  const userId = store.getters.getUserId;
   
   const addresses = ref([]); // Lista de direcciones guardadas
   const locationInput = ref(null); // Input para ingresar la dirección
@@ -46,6 +55,7 @@
   
   onMounted(() => {
     cargarMapa();
+    getAllAdresClient();
   });
   
   // Función para cargar el mapa y configurar el autocompletado
@@ -89,18 +99,42 @@
     });
   };
   
-  // Función para agregar una nueva dirección a la lista
-  const addNewAddress = () => {
-    if (locationInput.value.value.trim() === '') {
-      alert('Por favor, ingresa una dirección válida.');
-      return;
+  // Obtener todas las direcciones del cliente desde el backend
+  const getAllAdresClient = async () => {
+    try {
+      const response = await getClientAdress(userId);
+      addresses.value = response.data; // Asignar las direcciones obtenidas al arreglo `addresses`
+    } catch (error) {
+      console.error("Error al obtener las direcciones:", error);
     }
+  };
   
-    //Cambiar por llamado al backend para guardar la dirección
-    addresses.value.push(locationInput.value.value); 
-
-
-    locationInput.value.value = ''; // Limpiar el campo de entrada
+  const newAddress = {
+    streetAddress: "",
+    latitude: "",
+    longitude: "",
+  };
+  
+  // Función para agregar una nueva dirección a la lista
+  const addNewAddress = async () => {
+    newAddress.streetAddress = locationInput.value.value;
+    newAddress.latitude = latitude.value;
+    newAddress.longitude = longitude.value;
+  
+    try {
+      const response = await postClientAdress(userId, newAddress);
+      console.log("Dirección agregada:", response);
+  
+      // Actualizar la lista de direcciones después de agregar una nueva
+      getAllAdresClient();
+  
+      // Limpiar los campos
+      locationInput.value.value = '';
+      latitude.value = null;
+      longitude.value = null;
+    } catch (error) {
+      console.error("Error al agregar la dirección:", error);
+    }
   };
   </script>
   
@@ -151,7 +185,6 @@
     padding: 10px;
     background-color: green;
     color: white;
-    border: none;
   }
   </style>
   

@@ -23,9 +23,11 @@ const productService = {
     }
   },
 
-  async postProduct(product, id) {
+  async postProduct(product) {
+    console.log(product);
+    
     try {
-      const response = await httpClient.post(`/api/v1/products/${id}`, product);
+      const response = await httpClient.post("/api/v1/products", product);
       return response.data;
     } catch (error) {
       throw new Error(
