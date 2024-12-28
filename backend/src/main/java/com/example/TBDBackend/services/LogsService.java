@@ -1,6 +1,6 @@
 package com.example.TBDBackend.services;
 
-import com.example.TBDBackend.entities.Log;
+import com.example.TBDBackend.models.Log;
 import com.example.TBDBackend.repositories.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

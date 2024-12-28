@@ -1,4 +1,4 @@
-package com.example.TBDBackend.entities;
+package com.example.TBDBackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,24 +8,34 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Document(collection = "order_details")
+import java.math.BigDecimal;
+import java.util.List;
+
+@Document(collection = "products")
 
 @Data
 @Builder
-public class OrderDetail {
+public class Product {
     @Id
     private String id;
 
-    private int quantity;
+    private String name;
 
-    @JsonProperty("unit_price")
-    private double unitPrice;
+    private String description;
+
+    private BigDecimal price;
+
+    private int stock;
+
+    private String state;
 
     @DocumentReference(lazy = true)
-    private Order order;
+    private Category category;
 
+    @JsonProperty("order_details")
+    @JsonIgnore
     @DocumentReference(lazy = true)
-    private Product product;
+    private List<OrderDetail> orderDetails;
 
     @JsonIgnore
     private Object target;

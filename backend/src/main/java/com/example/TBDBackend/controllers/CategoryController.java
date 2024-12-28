@@ -1,7 +1,7 @@
 package com.example.TBDBackend.controllers;
 
 import com.example.TBDBackend.dtos.CategoryDTO;
-import com.example.TBDBackend.entities.Category;
+import com.example.TBDBackend.models.Category;
 import com.example.TBDBackend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

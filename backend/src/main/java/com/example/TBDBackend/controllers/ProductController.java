@@ -1,7 +1,7 @@
 package com.example.TBDBackend.controllers;
 
 import com.example.TBDBackend.dtos.ProductDTO;
-import com.example.TBDBackend.entities.Product;
+import com.example.TBDBackend.models.Product;
 import com.example.TBDBackend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.example.TBDBackend.controllers;
 
-import com.example.TBDBackend.entities.Log;
+import com.example.TBDBackend.models.Log;
 import com.example.TBDBackend.services.LogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,10 +1,15 @@
-package com.example.TBDBackend.entities;
+package com.example.TBDBackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "clients")
 
@@ -23,6 +28,8 @@ public class Client {
     private String password;
 
     private String phone;
+
+    private List<Address> addresses;
 
     @JsonIgnore
     private Object target;

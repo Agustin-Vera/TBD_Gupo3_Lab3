@@ -3,7 +3,7 @@ package com.example.TBDBackend.controllers;
 import com.example.TBDBackend.dtos.LoginDTO;
 import com.example.TBDBackend.dtos.LoginResponseDTO;
 import com.example.TBDBackend.dtos.RegisterDTO;
-import com.example.TBDBackend.entities.Client;
+import com.example.TBDBackend.models.Client;
 import com.example.TBDBackend.services.AuthService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
