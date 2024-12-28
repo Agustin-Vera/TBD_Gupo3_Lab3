@@ -2,13 +2,19 @@ package com.example.TBDBackend.services;
 
 import com.example.TBDBackend.dtos.ProductDTO;
 import com.example.TBDBackend.entities.CategoryEntity;
+import com.example.TBDBackend.entities.ClientEntity;
+import com.example.TBDBackend.entities.LogEntity;
 import com.example.TBDBackend.entities.ProductEntity;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
+import com.example.TBDBackend.jwt.JwtUtil;
 import com.example.TBDBackend.repositories.CategoryRepository;
+import com.example.TBDBackend.repositories.ClientRepository;
+import com.example.TBDBackend.repositories.LogRepository;
 import com.example.TBDBackend.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +25,14 @@ public class ProductService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private LogRepository logRepository;
+    @Autowired
+    private AuthService authService;
 
     public List<ProductEntity> findAllProducts() {
         return productRepository.findAll();
@@ -64,6 +78,21 @@ public class ProductService {
 
         if (possibleCategory.isEmpty()) {
             throw new EntityNotFoundException("Category not found");
+        }
+
+        if (possibleProduct.get().getPrice() != productDTO.getPrice()){
+            ClientEntity client = authService.getAuthClient();
+
+            Date newDate = new Date();
+
+            LogEntity newLog = LogEntity.builder()
+                    .originalPrice(possibleProduct.get().getPrice())
+                    .newPrice(productDTO.getPrice())
+                    .client(client)
+                    .updateDate(newDate)
+                    .build();
+
+            logRepository.save(newLog);
         }
 
         ProductEntity updatedProduct = ProductEntity.builder()

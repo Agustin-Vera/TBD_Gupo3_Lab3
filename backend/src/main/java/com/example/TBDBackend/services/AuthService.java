@@ -10,7 +10,9 @@ import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.jwt.JwtUtil;
 import com.example.TBDBackend.repositories.ClientRepository;
 import jakarta.servlet.http.Cookie;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -83,5 +85,19 @@ public class AuthService {
         }
 
         return client.get();
+    }
+
+    public ClientEntity getAuthClient() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            Optional<ClientEntity> clientEntity = clientRepository.findByEmail(email);
+
+            if (clientEntity.isEmpty()) {
+                throw new EntityNotFoundException("Client not found");
+            }
+            return clientEntity.get();
+        }
+        throw new EntityNotFoundException("No authenticated client found");
     }
 }
