@@ -1,8 +1,8 @@
 package com.example.TBDBackend.services;
 
 import com.example.TBDBackend.dtos.OrderDTO;
-import com.example.TBDBackend.entities.ClientEntity;
-import com.example.TBDBackend.entities.OrderEntity;
+import com.example.TBDBackend.entities.Client;
+import com.example.TBDBackend.entities.Order;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.repositories.ClientRepository;
 import com.example.TBDBackend.repositories.OrderRepository;
@@ -21,12 +21,12 @@ public class OrderService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public List<OrderEntity> findAllOrders() {
+    public List<Order> findAllOrders() {
         return orderRepository.findAll();
     }
 
-    public OrderEntity findOrderById(String id) {
-        Optional<OrderEntity> orderEntity = orderRepository.findById(id);
+    public Order findOrderById(String id) {
+        Optional<Order> orderEntity = orderRepository.findById(id);
 
         if(orderEntity.isEmpty()) {
             throw new EntityNotFoundException("Order Not Found");
@@ -34,14 +34,14 @@ public class OrderService {
         return orderEntity.get();
     }
 
-    public OrderEntity saveOrder(OrderDTO orderDTO) {
-        Optional<ClientEntity> possibleClient = clientRepository.findById(orderDTO.getClientId());
+    public Order saveOrder(OrderDTO orderDTO) {
+        Optional<Client> possibleClient = clientRepository.findById(orderDTO.getClientId());
 
         if(possibleClient.isEmpty()) {
             throw new EntityNotFoundException("Client Not Found");
         }
 
-        OrderEntity order = OrderEntity.builder()
+        Order order = Order.builder()
                 .orderDate(orderDTO.getOrderDate())
                 .state(orderDTO.getState())
                 .distributorId(orderDTO.getDistributorId())
@@ -53,19 +53,19 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public OrderEntity updateOrder(String id, OrderDTO orderDTO) {
-        Optional<OrderEntity> order = orderRepository.findById(id);
+    public Order updateOrder(String id, OrderDTO orderDTO) {
+        Optional<Order> order = orderRepository.findById(id);
         if(order.isEmpty()) {
             throw new EntityNotFoundException("Order Not Found");
         }
 
-        Optional<ClientEntity> possibleClient = clientRepository.findById(orderDTO.getClientId());
+        Optional<Client> possibleClient = clientRepository.findById(orderDTO.getClientId());
 
         if(possibleClient.isEmpty()) {
             throw new EntityNotFoundException("Client Not Found");
         }
 
-        OrderEntity updatedOrder = OrderEntity.builder()
+        Order updatedOrder = Order.builder()
                 .id(order.get().getId())
                 .orderDate(orderDTO.getOrderDate())
                 .state(orderDTO.getState())

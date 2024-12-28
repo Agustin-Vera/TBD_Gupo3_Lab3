@@ -1,9 +1,9 @@
 package com.example.TBDBackend.services;
 
 import com.example.TBDBackend.dtos.OrderDetailDTO;
-import com.example.TBDBackend.entities.OrderDetailEntity;
-import com.example.TBDBackend.entities.OrderEntity;
-import com.example.TBDBackend.entities.ProductEntity;
+import com.example.TBDBackend.entities.OrderDetail;
+import com.example.TBDBackend.entities.Order;
+import com.example.TBDBackend.entities.Product;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.repositories.OrderDetailRepository;
 import com.example.TBDBackend.repositories.OrderRepository;
@@ -25,12 +25,12 @@ public class OrderDetailService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<OrderDetailEntity> findAllOrderDetails() {
+    public List<OrderDetail> findAllOrderDetails() {
         return orderDetailRepository.findAll();
     }
 
-    public OrderDetailEntity findOrderDetailById(String id) {
-        Optional<OrderDetailEntity> orderDetailEntity = orderDetailRepository.findById(id);
+    public OrderDetail findOrderDetailById(String id) {
+        Optional<OrderDetail> orderDetailEntity = orderDetailRepository.findById(id);
 
         if (orderDetailEntity.isEmpty()) {
             throw new EntityNotFoundException("Order Detail Not Found");
@@ -38,20 +38,20 @@ public class OrderDetailService {
         return orderDetailEntity.get();
     }
 
-    public OrderDetailEntity saveOrderDetail(OrderDetailDTO orderDetailDTO) {
-        Optional<OrderEntity> possibleOrder = orderRepository.findById(orderDetailDTO.getOrderId());
+    public OrderDetail saveOrderDetail(OrderDetailDTO orderDetailDTO) {
+        Optional<Order> possibleOrder = orderRepository.findById(orderDetailDTO.getOrderId());
 
         if (possibleOrder.isEmpty()) {
             throw new EntityNotFoundException("Order Not Found");
         }
 
-        Optional<ProductEntity> possibleProduct = productRepository.findById(orderDetailDTO.getProductId());
+        Optional<Product> possibleProduct = productRepository.findById(orderDetailDTO.getProductId());
 
         if (possibleProduct.isEmpty()) {
             throw new EntityNotFoundException("Product Not Found");
         }
 
-        OrderDetailEntity orderDetail = OrderDetailEntity.builder()
+        OrderDetail orderDetail = OrderDetail.builder()
                 .order(possibleOrder.get())
                 .product(possibleProduct.get())
                 .quantity(orderDetailDTO.getQuantity())
@@ -60,26 +60,26 @@ public class OrderDetailService {
         return orderDetailRepository.save(orderDetail);
     }
 
-    public OrderDetailEntity updateOrderDetail(String id, OrderDetailDTO orderDetailDTO) {
-        Optional<OrderDetailEntity> orderDetailEntity = orderDetailRepository.findById(id);
+    public OrderDetail updateOrderDetail(String id, OrderDetailDTO orderDetailDTO) {
+        Optional<OrderDetail> orderDetailEntity = orderDetailRepository.findById(id);
 
         if (orderDetailEntity.isEmpty()) {
             throw new EntityNotFoundException("Order Detail Not Found");
         }
 
-        Optional<OrderEntity> possibleOrder = orderRepository.findById(orderDetailDTO.getOrderId());
+        Optional<Order> possibleOrder = orderRepository.findById(orderDetailDTO.getOrderId());
 
         if (possibleOrder.isEmpty()) {
             throw new EntityNotFoundException("Order Not Found");
         }
 
-        Optional<ProductEntity> possibleProduct = productRepository.findById(orderDetailDTO.getProductId());
+        Optional<Product> possibleProduct = productRepository.findById(orderDetailDTO.getProductId());
 
         if (possibleProduct.isEmpty()) {
             throw new EntityNotFoundException("Product Not Found");
         }
 
-        OrderDetailEntity updatedOrderDetail = OrderDetailEntity.builder()
+        OrderDetail updatedOrderDetail = OrderDetail.builder()
                 .id(orderDetailEntity.get().getId())
                 .order(possibleOrder.get())
                 .product(possibleProduct.get())

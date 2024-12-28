@@ -1,6 +1,6 @@
 package com.example.TBDBackend.services;
 
-import com.example.TBDBackend.entities.ClientEntity;
+import com.example.TBDBackend.entities.Client;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public List<ClientEntity> findAllClients() {
+    public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
 
-    public ClientEntity findClientById(String id) {
-        Optional<ClientEntity> client = clientRepository.findById(id);
+    public Client findClientById(String id) {
+        Optional<Client> client = clientRepository.findById(id);
 
         if (client.isEmpty()) {
             throw new EntityNotFoundException("Client not found");

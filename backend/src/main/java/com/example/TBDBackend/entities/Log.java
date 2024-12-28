@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Builder
-public class LogEntity {
+public class Log {
     @Id
     private String id;
 
@@ -25,5 +25,5 @@ public class LogEntity {
     private Date updateDate;
 
     @DocumentReference(lazy = true)
-    private ClientEntity client;
+    private Client client;
 }

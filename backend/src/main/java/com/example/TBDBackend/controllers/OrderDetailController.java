@@ -1,7 +1,7 @@
 package com.example.TBDBackend.controllers;
 
 import com.example.TBDBackend.dtos.OrderDetailDTO;
-import com.example.TBDBackend.entities.OrderDetailEntity;
+import com.example.TBDBackend.entities.OrderDetail;
 import com.example.TBDBackend.services.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,22 +20,22 @@ public class OrderDetailController {
     private OrderDetailService orderDetailService;
 
     @GetMapping
-    public ResponseEntity<List<OrderDetailEntity>> getAllOrderDetails() {
+    public ResponseEntity<List<OrderDetail>> getAllOrderDetails() {
         return new ResponseEntity<>(orderDetailService.findAllOrderDetails(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDetailEntity> getOrderDetailById(@PathVariable String id) {
+    public ResponseEntity<OrderDetail> getOrderDetailById(@PathVariable String id) {
         return new ResponseEntity<>(orderDetailService.findOrderDetailById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<OrderDetailEntity> postOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
+    public ResponseEntity<OrderDetail> postOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         return new ResponseEntity<>(orderDetailService.saveOrderDetail(orderDetailDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDetailEntity> putOrderDetail(@PathVariable String id, @RequestBody OrderDetailDTO orderDetailDTO) {
+    public ResponseEntity<OrderDetail> putOrderDetail(@PathVariable String id, @RequestBody OrderDetailDTO orderDetailDTO) {
         return new ResponseEntity<>(orderDetailService.updateOrderDetail(id, orderDetailDTO), HttpStatus.OK);
     }
 

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -13,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Data
 @Builder
-public class OrderDetailEntity {
+public class OrderDetail {
     @Id
     private String id;
 
@@ -23,10 +22,10 @@ public class OrderDetailEntity {
     private double unitPrice;
 
     @DocumentReference(lazy = true)
-    private OrderEntity order;
+    private Order order;
 
     @DocumentReference(lazy = true)
-    private ProductEntity product;
+    private Product product;
 
     @JsonIgnore
     private Object target;

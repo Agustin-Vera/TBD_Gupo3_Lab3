@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class CategoryEntity {
+public class Category {
     @Id
     private String id;
 
@@ -21,7 +21,7 @@ public class CategoryEntity {
 
     @JsonIgnore
     @DocumentReference(lazy = true)
-    private List<ProductEntity> products;
+    private List<Product> products;
 
     @JsonIgnore
     private Object target;
