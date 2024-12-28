@@ -30,18 +30,16 @@ public class CategoryService {
     }
 
     public CategoryEntity saveCategory(CategoryDTO categoryDTO) {
-        Optional<CategoryEntity> category = categoryRepository.findByName(categoryDTO.getName());
+        Optional<CategoryEntity> possibleCategory = categoryRepository.findByName(categoryDTO.getName());
 
-        if (category.isPresent()) {
+        if (possibleCategory.isPresent()) {
             throw new IllegalArgumentException("Category already exists");
         }
-        else {
-            CategoryEntity newCategory = CategoryEntity.builder()
-                    .name(categoryDTO.getName())
-                    .build();
+        CategoryEntity category = CategoryEntity.builder()
+                .name(categoryDTO.getName())
+                .build();
 
-            return categoryRepository.save(newCategory);
-        }
+        return categoryRepository.save(category);
     }
 
     public CategoryEntity updateCategory(String id, CategoryDTO categoryDTO) {

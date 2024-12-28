@@ -1,5 +1,6 @@
 package com.example.TBDBackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -15,4 +16,7 @@ public class ProductDTO {
     private int stock;
 
     private String state;
+
+    @JsonProperty("category_id")
+    private String categoryId;
 }
