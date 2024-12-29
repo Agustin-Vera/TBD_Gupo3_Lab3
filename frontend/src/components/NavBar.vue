@@ -15,12 +15,6 @@
         </router-link>
       </div>
       <div class="logout-button" v-else>
-        <router-link to="/logs">
-          <button class="logs-btn">Bitácora</button>
-        </router-link>
-        <router-link to="/restrictedCommune">
-          <button class="logs-btn">Agregar comuna restringida</button>
-        </router-link>
         <router-link to="/querry1">
           <button class="dropdown-item">Querry 1</button>
         </router-link>
@@ -101,7 +95,6 @@ button:hover {
 
 .register-btn,
 .login-btn,
-.logs-btn,
 .logout-btn {
   font-size: 0.9rem;
 }

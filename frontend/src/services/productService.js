@@ -24,7 +24,6 @@ const productService = {
   },
 
   async postProduct(product) {
-    console.log(product);
     
     try {
       const response = await httpClient.post("/api/v1/products", product);

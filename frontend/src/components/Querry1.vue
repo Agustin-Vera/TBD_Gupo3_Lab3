@@ -16,11 +16,11 @@
         </thead>
         <tbody>
           <tr v-for="record in priceHistory" :key="record.id">
-            <td>{{ record.productName }}</td>
-            <td>{{ record.oldPrice }}</td>
-            <td>{{ record.newPrice }}</td>
-            <td>{{ formatDate(record.date) }}</td>
-            <td>{{ record.modifiedBy }}</td>
+            <td>{{ record.name_product }}</td>
+            <td>{{ record.original_price }}</td>
+            <td>{{ record.new_price }}</td>
+            <td>{{ record.update_date }}</td>
+            <td>{{ record.client.name }}</td>
           </tr>
         </tbody>
       </table>
@@ -29,6 +29,7 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
+  import { getLogs } from '../services/querryService';
   
   const priceHistory = ref([]);
   
@@ -38,7 +39,8 @@
   
   const getHistoryPrice = async () => {
     
-    //Consulta para traer el historial de precios
+    const response = await getLogs();
+    priceHistory.value = response.data;
   };
   </script>
   

@@ -24,6 +24,9 @@ public class Log {
     @JsonProperty("update_date")
     private Date updateDate;
 
+    @JsonProperty("name_product")
+    private String nameProduct;
+
     @DocumentReference(lazy = true)
     private Client client;
 }
