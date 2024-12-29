@@ -73,7 +73,7 @@ public class ProductService {
         if (possibleCategory.isEmpty()) {
             throw new EntityNotFoundException("Category not found");
         }
-
+        
         if (possibleProduct.get().getPrice() != productDTO.getPrice()) {
             Client client = authService.getAuthClient();
 
@@ -82,6 +82,7 @@ public class ProductService {
                     .originalPrice(possibleProduct.get().getPrice())
                     .newPrice(productDTO.getPrice())
                     .updateDate(new Date())
+                    .nameProduct(productDTO.getName())
                     .build();
 
             logRepository.save(newLog);
