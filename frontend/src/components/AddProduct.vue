@@ -27,7 +27,7 @@
 
       <div class="form-group">
         <label for="category">Categoría:</label>
-        <select id="category" v-model="product.categoryId" class="input-field">
+        <select id="category" v-model="product.category_id" class="input-field">
           <option disabled value="">Seleccione una categoría</option>
           <option v-for="category in categories" :key="category.id" :value="category.id">
             {{ category.name }}
@@ -51,7 +51,7 @@ const product = ref({
   price: 0,
   stock: 0,
   state: 'available',
-  categoryId: null,
+  category_id: null,
 });
 
 const categories = ref([]);
@@ -66,7 +66,7 @@ const registerProduct = async () => {
       price: 0,
       stock: 0,
       state: 'available',
-      categoryId: null,
+      category_id: null,
     };
   } catch (error) {
     console.error(error.message);
