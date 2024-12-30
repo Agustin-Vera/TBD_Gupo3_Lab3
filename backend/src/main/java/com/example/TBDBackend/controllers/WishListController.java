@@ -48,4 +48,9 @@ public class WishListController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("/{id}/addProducts")
+    public ResponseEntity<WishList> addProductToWishList(@PathVariable String id, @RequestBody WishListDTO wishListDTO) {
+        return new ResponseEntity<>(wishListService.addProductToWishList(id, wishListDTO), HttpStatus.OK);
+    }
+
 }
