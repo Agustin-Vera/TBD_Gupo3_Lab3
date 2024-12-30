@@ -84,4 +84,29 @@ public class WishListService {
         wishListRepository.deleteById(id);
     }
 
+    public WishList addProductToWishList(String id, WishListDTO wishListDTO) {
+        Optional<WishList> possibleWishList = wishListRepository.findById(id);
+        if (possibleWishList.isEmpty()) {
+            throw new EntityNotFoundException("Wish List not found");
+        }
+
+        List<String> productsIds = wishListDTO.getProductsId();
+        List<Product> products = possibleWishList.get().getProducts();
+
+        for(String productId : productsIds) {
+            Optional<Product> product = productRepository.findById(productId);
+            if(product.isEmpty()) {
+                throw new EntityNotFoundException("Product not found");
+            }
+            products.add(product.get());
+        }
+
+        WishList updatedWishList = WishList.builder()
+                .id(possibleWishList.get().getId())
+                .products(products)
+                .build();
+        return wishListRepository.save(updatedWishList);
+
+    }
+
 }

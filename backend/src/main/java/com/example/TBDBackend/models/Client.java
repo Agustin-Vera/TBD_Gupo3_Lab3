@@ -31,7 +31,7 @@ public class Client {
     private String phone;
 
     private List<Address> addresses;
-    
+
     @DocumentReference(lazy = true)
     private WishList wishlist;
 
