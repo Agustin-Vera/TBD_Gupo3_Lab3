@@ -21,6 +21,7 @@
           <th>Precio</th>
           <th>Stock</th>
           <th>Unidades a Pedir</th>
+          <th>Lista de deseos</th>
         </tr>
       </thead>
       <tbody>
@@ -39,6 +40,12 @@
               </button>
             </div>
           </td>
+          <td> 
+            <button @click="agregarListaDeseos(product)" style="background-color: green; color: white;">
+              Agregar a lista de deseos
+            </button>
+          </td>
+            
         </tr>
       </tbody>
     </table>
@@ -50,9 +57,14 @@ import { ref, onMounted } from 'vue';
 import productService from '../services/productService';
 import { orderService } from '../services/orderService';
 import { useStore } from 'vuex';
+import { AddProductToWishList } from '../services/wishListService';
+import {getUser} from '../services/clientService';
+
 
 const products = ref([]);
 const store = useStore();
+const userId = store.getters.getUserId;
+
 
 onMounted(async () => {
   try {
@@ -87,9 +99,9 @@ const sendProductId = async (product, cantidad) => {
 
   try {
     const response = await orderService.postOrderDetails(newOrderDetails);
-
-    actualizarTotal(newOrderDetails);
-    actualizarStock(product, cantidad);
+    console.log( response);
+    await actualizarTotal(newOrderDetails);
+    await actualizarStock(product, cantidad);
   } catch (error) {
     console.error(error.message);
   }
@@ -109,6 +121,20 @@ const actualizarStock = async (product, cantidad) => {
   product.stock = product.stock - cantidad;
   const response = await productService.putProduct(product);
 };
+
+
+
+
+const agregarListaDeseos = async (product) => {
+  const user = await getUser(userId);
+
+  const productoNew ={
+    products: [product.id]
+  } 
+
+  const response = await AddProductToWishList(user.data.wishlist.id ,productoNew);
+}; 
+
 </script>
 
 <style scoped>
