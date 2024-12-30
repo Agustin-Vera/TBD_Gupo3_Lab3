@@ -22,7 +22,7 @@
           <button class="dropdown-item">Querry 2</button>
         </router-link>
         <router-link to="/querry3">
-          <button class="dropdown-item">Querry 3</button>
+          <button class="dropdown-item">Lista de deseos</button>
         </router-link>
         <router-link to="/login">
           <button class="logout-btn" v-on:click="logout">Cerrar sesión</button>
