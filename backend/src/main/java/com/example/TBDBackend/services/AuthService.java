@@ -8,7 +8,9 @@ import com.example.TBDBackend.dtos.RegisterDTO;
 import com.example.TBDBackend.models.Client;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.jwt.JwtUtil;
+import com.example.TBDBackend.models.WishList;
 import com.example.TBDBackend.repositories.ClientRepository;
+import com.example.TBDBackend.repositories.WishListRepository;
 import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,11 +23,16 @@ import java.util.Optional;
 public class AuthService {
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    WishListRepository wishListRepository;
 
     public Client register(RegisterDTO registerDTO) {
         if(clientRepository.existsByEmail(registerDTO.getEmail())) {
             throw new IllegalStateException("Email already in use");
         }
+
+        WishList wishList = WishList.builder().build();
+        WishList savedWishList = wishListRepository.save(wishList);
 
         Client client = Client.builder()
                 .name(registerDTO.getName())
@@ -33,6 +40,7 @@ public class AuthService {
                 .email(registerDTO.getEmail())
                 .password(registerDTO.getPassword())
                 .phone(registerDTO.getPhone())
+                .wishlist(savedWishList)
                 .build();
 
         return clientRepository.save(client);
