@@ -20,6 +20,7 @@
           <th>Stock</th>
           <th>Unidades a Pedir</th>
           <th>Lista de deseos</th>
+          <th>Modificar Precio</th> 
         </tr>
       </thead>
       <tbody>
@@ -39,10 +40,26 @@
               Agregar a lista de deseos
             </button>
           </td>
-
+          <td> 
+            <button @click="openModifyPriceModal(product)" style="background-color: blue; color: white;">
+              Modificar Precio
+            </button>
+          </td> 
         </tr>
       </tbody>
     </table>
+
+    <!-- Modal para modificar el precio -->
+    <div v-if="isModalOpen" class="modal">
+      <div class="modal-content">
+        <span class="close" @click="isModalOpen = false">&times;</span>
+        <h2>Modificar Precio para {{ selectedProduct?.name }}</h2>
+        <!-- Solo se modifica el precio -->
+        <input type="number" v-model.number="newPrice" />
+        <button @click="updateProductPrice">Guardar Cambios</button>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -54,11 +71,12 @@ import { useStore } from 'vuex';
 import { AddProductToWishList } from '../services/wishListService';
 import { getUser } from '../services/clientService';
 
-
 const products = ref([]);
 const store = useStore();
 const userId = store.getters.getUserId;
-
+const isModalOpen = ref(false);
+const selectedProduct = ref(null);
+const newPrice = ref(0); // Variable para almacenar el nuevo precio
 
 onMounted(async () => {
   try {
@@ -70,7 +88,6 @@ onMounted(async () => {
   } catch (error) {
     console.error(error.message);
   }
-
 });
 
 const isValidQuantity = (quantity, stock) => {
@@ -94,7 +111,6 @@ const sendProductId = async (product, cantidad) => {
 
   try {
     const response = await orderService.postOrderDetails(newOrderDetails);
-    //console.log( response);
     await actualizarTotal(newOrderDetails);
     await actualizarStock(product, cantidad);
   } catch (error) {
@@ -114,14 +130,9 @@ const actualizarTotal = async (newOrderDetails) => {
 
 const actualizarStock = async (product, cantidad) => {
   product.stock = product.stock - cantidad;
-  console.log(product);
-
 
   const response = await productService.putProduct(product.id, product);
 };
-
-
-
 
 const agregarListaDeseos = async (product) => {
   const user = await getUser(userId);
@@ -131,6 +142,38 @@ const agregarListaDeseos = async (product) => {
   }
 
   const response = await AddProductToWishList(user.data.wishlist.id, productoNew);
+};
+
+
+const openModifyPriceModal = (product) => {
+  selectedProduct.value = { ...product };
+  newPrice.value = product.price; 
+  positionClass.value = 'top-center'; 
+  isModalOpen.value = true;
+};
+
+const positionClass = ref('top-center');
+
+const updateProductPrice = async () => {
+  try {
+  
+    const updatedProduct = { ...selectedProduct.value, price: newPrice.value };
+    
+    await productService.putProduct(selectedProduct.value.id, updatedProduct);
+    
+    alert('Precio actualizado con éxito');
+    isModalOpen.value = false;
+    
+    // Recargar productos para reflejar cambios
+    const responseProducts = await productService.getProducts();
+    products.value = responseProducts.map((product) => ({
+      ...product,
+      quantity: 0,
+    }));
+    
+  } catch (error) {
+    alert('Error al actualizar precio: ' + (error.response ? error.response.data : 'Error desconocido'));
+  }
 };
 
 </script>
@@ -194,4 +237,36 @@ button {
   cursor: pointer;
   margin: 0 5px;
 }
+
+.modal {
+  position: fixed; 
+  z-index: 1; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 50%; 
+  overflow: auto; 
+  display: flex; 
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  text-align: center;
+}
+
+.modal-content {
+  background-color: #555; 
+  margin: auto; 
+  padding: 20px; 
+  border: 1px solid #888; 
+  width: 50%; 
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.top-center {
+  justify-content: center;
+  align-items: flex-start; 
+  text-align: center;
+}
+
 </style>
