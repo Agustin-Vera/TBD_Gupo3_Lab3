@@ -32,7 +32,7 @@ public class Client {
 
     private List<Address> addresses;
 
-    @DocumentReference(lazy = true)
+    @DocumentReference(lazy = false)
     private WishList wishlist;
 
     @JsonIgnore

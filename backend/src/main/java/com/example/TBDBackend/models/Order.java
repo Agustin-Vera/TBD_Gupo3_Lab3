@@ -37,8 +37,8 @@ public class Order {
     @JsonProperty("delivery_location")
     private String deliveryLocation;
 
-    @JsonIgnore
-    @DocumentReference(lazy = true)
+   
+    @DocumentReference(lazy = false)
     private Client client;
 
     @JsonProperty("order_details")
@@ -51,4 +51,6 @@ public class Order {
 
     @JsonIgnore
     private Object source;
+
+
 }

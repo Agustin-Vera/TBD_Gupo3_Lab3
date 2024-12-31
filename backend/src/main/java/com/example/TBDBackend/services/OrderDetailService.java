@@ -97,4 +97,7 @@ public class OrderDetailService {
     }
 
 
+    public List<OrderDetail> getOrderDetailsByOrder(String order) {
+        return orderDetailRepository.findByOrder_Id(order);
+    }
 }

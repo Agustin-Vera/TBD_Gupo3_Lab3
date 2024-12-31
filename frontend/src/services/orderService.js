@@ -49,7 +49,10 @@ export const orderService = {
   },
 
   async putOrder(order) {
+    console.log(order.id);
     console.log(order);
+
+    order.client_id = order.client.id;
     try {
       const response = await httpClient.put(
         `/api/v1/orders/${order.id}`,

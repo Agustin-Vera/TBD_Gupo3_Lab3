@@ -51,10 +51,12 @@ const obtenerOrder = async () => {
     const orderID = store.getters.getOrderId;
 
     const responseOrder = await orderService.gerOrderById(orderID);
-    total.value = responseOrder.total;
+    total.value = responseOrder.total;   
 
     const responseProducts = await orderService.getProductOrdersById(orderID);
-    const productIds = responseProducts.map(order => order.product_id);
+    const productIds = responseProducts.map(order => order.product.id);
+
+
     const productRequests = productIds.map(id => productService.getProduct(id));
     const productsResponses = await Promise.all(productRequests);
 
@@ -74,7 +76,12 @@ const confirmarOrder = () => {
   router.push('confirmOrder');
 };
 
-onMounted(obtenerOrder);
+
+
+onMounted(async () => {
+  obtenerOrder();
+});
+
 </script>
 
 <style scoped>
