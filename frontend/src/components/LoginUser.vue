@@ -1,17 +1,19 @@
 <template>
-    <div class="login-container">
-        <h1>Iniciar Sesión</h1>
-        <form @submit.prevent="login">
-            <div>
-                <label for="email">Correo:</label>
-                <input type="email" v-model="userData.email" required />
-            </div>
-            <div>
-                <label for="password">Contreseña:</label>
-                <input type="password" v-model="userData.password" required />
-            </div>
-            <button type="submit">Iniciar Sesión</button>
-        </form>
+    <div class="container">
+        <section class="login-container">
+            <h1>Iniciar Sesión</h1>
+            <form @submit.prevent="login">
+                <div>
+                    <label for="email">Correo:</label>
+                    <input type="email" v-model="userData.email" required />
+                </div>
+                <div>
+                    <label for="password">Contreseña:</label>
+                    <input type="password" v-model="userData.password" required />
+                </div>
+                <button class="login-button" type="submit">Iniciar Sesión</button>
+            </form>
+        </section>
     </div>
 </template>
 
@@ -60,12 +62,22 @@ const newOrder = async () => {
 </script>
 
 <style scoped>
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
 .login-container {
+    display: grid;
     max-width: 400px;
-    margin: 0 auto;
+    align-items: center;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 h1 {
@@ -99,5 +111,6 @@ button {
 
 button:hover {
     background-color: #0056b3;
+    scale: 101%;
 }
 </style>

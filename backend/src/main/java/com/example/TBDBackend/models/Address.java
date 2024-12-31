@@ -1,5 +1,6 @@
 package com.example.TBDBackend.models;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
