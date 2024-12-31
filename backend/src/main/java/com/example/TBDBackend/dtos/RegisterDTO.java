@@ -13,4 +13,10 @@ public class RegisterDTO {
     private String password;
 
     private String phone;
+
+    private String streetAddress;
+
+    private double latitude;
+
+    private double longitude;
 }

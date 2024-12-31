@@ -63,9 +63,17 @@ public class ClientService {
         if (!clientRepository.existsById(clientId)) {
             throw new EntityNotFoundException("Cliente no encontrado");
         }
+
         List<Address> addresses = new ArrayList<>();
         clientRepository.findById(clientId)
-                .ifPresent(client -> addresses.addAll(client.getAddresses()));
+                .ifPresent(client -> {
+                    List<Address> clientAddresses = client.getAddresses();
+                    if (clientAddresses != null) {
+                        addresses.addAll(clientAddresses);
+                    }
+                });
+
         return ResponseEntity.ok(addresses);
     }
+
 }

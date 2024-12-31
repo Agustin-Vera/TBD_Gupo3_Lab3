@@ -1,14 +1,12 @@
 <template>
   <div>
-    <h1>Productos</h1>
+    <h1 class="tittle">Productos</h1>
 
     <div class="button-container">
       <router-link to="/addProduct">
         <button style="background-color: green; color: white;">Agregar Producto</button>
       </router-link>
-    </div>
 
-    <div class="button-container" style="text-align: right;">
       <router-link to="/order">
         <button style="background-color: orange; color: white;">Ver Orden</button>
       </router-link>
@@ -29,23 +27,19 @@
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.stock }}</td>
-          <td>
-            <div style="display: flex; align-items: center;">
-              <input type="number" v-model.number="product.quantity" min="0" :max="product.stock"
-                style="width: 80px; margin-right: 5px;" />
-              <button @click="sendProductId(product, product.quantity)"
-                :disabled="!isValidQuantity(product.quantity, product.stock)"
-                style="background-color: burlywood; color: white;">
-                Agregar a orden de compra
-              </button>
-            </div>
+          <td class="unit-container">
+            <input class="unit-input" type="number" v-model.number="product.quantity" min="0" :max="product.stock" />
+            <button class="unit-button" @click="sendProductId(product, product.quantity)"
+              :disabled="!isValidQuantity(product.quantity, product.stock)">
+              Agregar a orden de compra
+            </button>
           </td>
-          <td> 
+          <td>
             <button @click="agregarListaDeseos(product)" style="background-color: green; color: white;">
               Agregar a lista de deseos
             </button>
           </td>
-            
+
         </tr>
       </tbody>
     </table>
@@ -58,7 +52,7 @@ import productService from '../services/productService';
 import { orderService } from '../services/orderService';
 import { useStore } from 'vuex';
 import { AddProductToWishList } from '../services/wishListService';
-import {getUser} from '../services/clientService';
+import { getUser } from '../services/clientService';
 
 
 const products = ref([]);
@@ -121,9 +115,9 @@ const actualizarTotal = async (newOrderDetails) => {
 const actualizarStock = async (product, cantidad) => {
   product.stock = product.stock - cantidad;
   console.log(product);
-  
 
-  const response = await productService.putProduct(product.id,product);
+
+  const response = await productService.putProduct(product.id, product);
 };
 
 
@@ -132,18 +126,44 @@ const actualizarStock = async (product, cantidad) => {
 const agregarListaDeseos = async (product) => {
   const user = await getUser(userId);
 
-  const productoNew ={
+  const productoNew = {
     products: [product.id]
-  } 
+  }
 
-  const response = await AddProductToWishList(user.data.wishlist.id ,productoNew);
-}; 
+  const response = await AddProductToWishList(user.data.wishlist.id, productoNew);
+};
 
 </script>
 
 <style scoped>
+.unit-input {
+  width: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.unit-button {
+  background-color: burlywood;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.unit-container {
+  display: flex;
+  gap: 10px;
+}
+
+.tittle {
+  text-align: center;
+}
+
 .button-container {
+  display: flex;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .form-title {
@@ -151,8 +171,10 @@ const agregarListaDeseos = async (product) => {
 }
 
 .product-table {
+  max-width: 50%;
   width: 100%;
   border-collapse: collapse;
+  margin: 20px auto;
 }
 
 .product-table th,
@@ -164,5 +186,12 @@ const agregarListaDeseos = async (product) => {
 
 .product-table th {
   background-color: #f2f2f2;
+}
+
+button {
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
 }
 </style>

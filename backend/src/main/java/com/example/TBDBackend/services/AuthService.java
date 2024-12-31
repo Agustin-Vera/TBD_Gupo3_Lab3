@@ -5,6 +5,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.TBDBackend.dtos.LoginDTO;
 import com.example.TBDBackend.dtos.LoginResponseDTO;
 import com.example.TBDBackend.dtos.RegisterDTO;
+import com.example.TBDBackend.models.Address;
 import com.example.TBDBackend.models.Client;
 import com.example.TBDBackend.exceptions.EntityNotFoundException;
 import com.example.TBDBackend.jwt.JwtUtil;
@@ -13,6 +14,7 @@ import com.example.TBDBackend.repositories.ClientRepository;
 import com.example.TBDBackend.repositories.WishListRepository;
 import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -34,13 +36,21 @@ public class AuthService {
         WishList wishList = WishList.builder().build();
         WishList savedWishList = wishListRepository.save(wishList);
 
+        Address address = new Address();
+        address.setStreetAddress(registerDTO.getStreetAddress());
+        address.setLocation(new GeoJsonPoint(
+                registerDTO.getLongitude(),
+                registerDTO.getLatitude()
+        ));
+
+
         Client client = Client.builder()
                 .name(registerDTO.getName())
-                .address(registerDTO.getAddress())
                 .email(registerDTO.getEmail())
                 .password(registerDTO.getPassword())
                 .phone(registerDTO.getPhone())
                 .wishlist(savedWishList)
+                .address(address)
                 .build();
 
         return clientRepository.save(client);

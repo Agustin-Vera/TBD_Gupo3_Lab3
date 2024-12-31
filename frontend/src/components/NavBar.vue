@@ -54,6 +54,11 @@ const logout = async () => {
 </script>
 
 <style scoped>
+.logout-button {
+  display: flex;
+  gap: 10px;
+}
+
 .navbar {
   background-color: #333;
   display: flex;
@@ -97,6 +102,14 @@ button:hover {
 .login-btn,
 .logout-btn {
   font-size: 0.9rem;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.register-btn:hover,
+.login-btn:hover,
+.logout-btn:hover {
+  scale: 101%;
 }
 
 .logout-btn {

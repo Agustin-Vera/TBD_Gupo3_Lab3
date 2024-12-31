@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Orden de Compra Actual</h1>
+    <h1 class="tittle">Orden de Compra Actual</h1>
     <table class="table">
       <thead>
         <tr>
@@ -20,9 +20,7 @@
 
     <div style="text-align: center; margin-top: 20px;">
       <h2>Total: {{ total }} pesos</h2>
-      <button 
-        @click="confirmarOrder"
-        class="confirm-button">
+      <button @click="confirmarOrder" class="confirm-button">
         Confirmar Orden
       </button>
     </div>
@@ -51,7 +49,7 @@ const obtenerOrder = async () => {
     const orderID = store.getters.getOrderId;
 
     const responseOrder = await orderService.gerOrderById(orderID);
-    total.value = responseOrder.total;   
+    total.value = responseOrder.total;
 
     const responseProducts = await orderService.getProductOrdersById(orderID);
     const productIds = responseProducts.map(order => order.product.id);
@@ -85,6 +83,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.tittle {
+  text-align: center;
+}
+
 .loader {
   display: flex;
   align-items: center;
@@ -99,9 +101,10 @@ onMounted(async () => {
 }
 
 .table {
-  width: 100%;
+  width: 50%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin: auto;
 }
 
 .table th,
