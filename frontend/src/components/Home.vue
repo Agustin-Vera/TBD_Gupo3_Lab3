@@ -76,6 +76,7 @@ onMounted(async () => {
   } catch (error) {
     console.error(error.message);
   }
+
 });
 
 const isValidQuantity = (quantity, stock) => {
@@ -99,7 +100,7 @@ const sendProductId = async (product, cantidad) => {
 
   try {
     const response = await orderService.postOrderDetails(newOrderDetails);
-    console.log( response);
+    //console.log( response);
     await actualizarTotal(newOrderDetails);
     await actualizarStock(product, cantidad);
   } catch (error) {
@@ -119,7 +120,10 @@ const actualizarTotal = async (newOrderDetails) => {
 
 const actualizarStock = async (product, cantidad) => {
   product.stock = product.stock - cantidad;
-  const response = await productService.putProduct(product);
+  console.log(product);
+  
+
+  const response = await productService.putProduct(product.id,product);
 };
 
 

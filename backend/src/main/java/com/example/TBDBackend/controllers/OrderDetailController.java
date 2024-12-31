@@ -1,8 +1,10 @@
 package com.example.TBDBackend.controllers;
 
 import com.example.TBDBackend.dtos.OrderDetailDTO;
+import com.example.TBDBackend.models.Order;
 import com.example.TBDBackend.models.OrderDetail;
 import com.example.TBDBackend.services.OrderDetailService;
+import com.example.TBDBackend.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,19 @@ public class OrderDetailController {
     @Autowired
     private OrderDetailService orderDetailService;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping
     public ResponseEntity<List<OrderDetail>> getAllOrderDetails() {
         return new ResponseEntity<>(orderDetailService.findAllOrderDetails(), HttpStatus.OK);
+    }
+
+    //order detail for order
+    @GetMapping("/order/{idOrder}")
+    public ResponseEntity<List<OrderDetail>> getOrderDetailByIdOrder(@PathVariable String idOrder){
+
+        return new ResponseEntity<>(orderDetailService.getOrderDetailsByOrder(idOrder), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -47,4 +59,7 @@ public class OrderDetailController {
         response.put("success", true);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+
+
 }

@@ -35,12 +35,14 @@ const productService = {
     }
   },
 
-  async putProduct(product) {
+  async putProduct(id,product) {
+    
+    const category = product.category.id;
+    product.category_id = category;
+    
     try {
       const response = await httpClient.put(
-        `/api/v1/products/${product.id}`,
-        product
-      );
+        `/api/v1/products/${id}`, product);
       return response.data;
     } catch (error) {
       throw new Error(
