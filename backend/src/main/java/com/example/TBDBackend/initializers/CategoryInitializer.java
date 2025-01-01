@@ -19,9 +19,7 @@ public class CategoryInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        // Verifica si ya hay categorías en la base de datos
-        if (categoryRepository.count() == 0) {
-            // Crea algunas categorías iniciales
+        if (categoryRepository.count() == 0){
             Category category1 = Category.builder()
                     .name("Electronica")
                     .build();
@@ -29,8 +27,6 @@ public class CategoryInitializer implements ApplicationRunner {
             Category category2 = Category.builder()
                     .name("Libro")
                     .build();
-
-            // Guarda las categorías en la base de datos
             categoryRepository.saveAll(Arrays.asList(category1, category2));
             System.out.println("Categorías iniciales cargadas.");
         } else {
