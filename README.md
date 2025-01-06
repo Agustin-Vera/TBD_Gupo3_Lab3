@@ -15,7 +15,7 @@ El repositorio incluye las siguientes carpetas principales:
 # Tecnologías requeridas
 * MongoDB v8.0.4
 * JDK v17.0.13
-* Spring Boot (Gradle + Java 17) v3.3.4
+* Spring Boot (Gradle + Java 17) v3.3.7
 * Sql2o v1.6.0
 * Spring Security v6.2.3
 * Java-jwt v4.4.0
